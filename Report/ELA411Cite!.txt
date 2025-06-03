@@ -1,0 +1,11 @@
+@article{kuruvilla_2003_intraoperative,
+  author = {KURUVILLA, ABRAHAM and FLINK, ROLAND},
+  month = {12},
+  pages = {577-584},
+  title = {Intraoperative electrocorticography in epilepsy surgery: useful or not?},
+  doi = {10.1016/s1059-1311(03)00095-5},
+  urldate = {2020-05-11},
+  volume = {12},
+  year = {2003},
+  journal = {Seizure}
+}

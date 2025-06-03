@@ -1,0 +1,18 @@
+
+@misc{a2012_ecog,
+  title = {ECOG Performance Status - ECOG-ACRIN},
+  url = {https://ecog-acrin.org/resources/ecog-performance-status},
+  urldate = {2022-01-08},
+  year = {2012},
+  organization = {ECOG-ACRIN}
+}
+
+@misc{cook_2017_tcp,
+  author = {Cook, Matt},
+  month = {10},
+  title = {TCP vs. UDP: What’s the Difference?},
+  url = {https://www.lifesize.com/en/blog/tcp-vs-udp/},
+  urldate = {2022-01-08},
+  year = {2017},
+  organization = {Lifesize}
+}
