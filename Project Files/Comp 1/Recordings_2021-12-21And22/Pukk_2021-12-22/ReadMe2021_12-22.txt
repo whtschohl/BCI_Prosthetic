@@ -1,0 +1,4 @@
+Both recordings are imaginary, with relaxed and closed hand with 6 second interval. 
+Beginning with 6 seconds of relaxed then closed hand for 6 seconds. Channels 6 and 7 are not working.  
+Both are railed, tried but didn’t get any signals from them. Each recoding day 
+contains 4 sessions.   

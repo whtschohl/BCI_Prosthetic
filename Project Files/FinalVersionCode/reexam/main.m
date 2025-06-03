@@ -1,0 +1,56 @@
+%% Import Data
+load("classOne.mat");
+load("classTwo.mat");
+load("bpFilt.mat");
+%load("mdl.mat");
+%% Filter
+for i = 1:size(classOne, 3);
+    classOne(:,:,i) = filtfilt(bpFilt, classOne(:,:,i));
+    classTwo(:,:,i) = filtfilt(bpFilt, classTwo(:,:,i));
+end
+clearvars i
+%% LogVar before CSP
+boolPlot = 1;
+boolAxis = 1;
+logVar(classOne, classTwo, boolPlot, boolAxis);
+clearvars boolPlot boolAxis ans
+%% CSP
+[W, WW] = getW(classOne, classTwo);
+[X1_CSP, X2_CSP]  = applyCSP(classOne, classTwo, W);
+% [pX1_CSP, pX2_CSP]  = applyCSP(classOne, classTwo, WW);
+%% ICA
+
+%% LogVar after ICA
+
+%% LogVar after CSP
+boolPlot = 1;
+boolAxis = 2;
+[vX1_CSP, vX2_CSP]  = logVar(X1_CSP, X2_CSP, boolPlot, boolAxis);
+%logVar(pX1_CSP, pX2_CSP, 0);
+%% Extract Ends
+X1_F = vX1_CSP([1,end],:)';
+X2_F = vX2_CSP([1,end],:)';
+clearvars vX1_CSP vX2_CSP
+%% Split Data
+[trainData, testData, trainLabels, testLabels]  = splitData(X1_F, X2_F, classOne, classTwo);
+%% SVM
+SVMModel = fitcsvm(trainData,trainLabels,'Standardize',true,'KernelFunction','Linear');
+%% SVM Optimize
+% cv = cvpartition(size(trainData, 1),'KFold',5);
+% opts = struct('CVPartition',cv,'AcquisitionFunctionName','expected-improvement-plus');
+% Mdl = fitcsvm(trainData,trainLabels,'KernelFunction','Linear', ...
+%     'OptimizeHyperparameters','auto','HyperparameterOptimizationOptions',opts)
+%% Pretict SVM
+guess = predict(SVMModel, testData);
+acc = sum(testLabels == guess)/round(size(classTwo,3)*0.2*2)
+%% Predict SVM Opt
+% v = predict(Mdl, testData);
+% acc = sum(testLabels == v)/round(size(classTwo,3)*0.2*2)
+%% Plots
+% sv = Mdl.SupportVectors;
+% figure
+% gscatter(trainData(:,1),trainData(:,2),trainLabels)
+% hold on
+% plot(sv(:,1),sv(:,2),'ko','MarkerSize',10)
+% legend('Class One','Class Two','Support Vector')
+% hold off

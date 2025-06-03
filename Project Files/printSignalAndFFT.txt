@@ -1,0 +1,39 @@
+%% Have to remove first 3 rows of the txt file before being able to use it
+ 
+file = load('nameofFile.txt');
+
+ 
+%% Plotting the signal
+sample = file(:,1);
+value = file(:,15);
+ 
+
+short = value';
+short = short(1:end);
+ 
+figure;
+plot(short;
+ 
+%% FFT of the signal
+L=length(short);
+N = size(short,2);
+fs=200;
+ 
+ 
+X0 = fft(short);
+X = X0(1:N/2+1);
+X_mag = abs(X)/N;
+X_mag(2:end-1) = X_mag(2:end-1)*2;
+ 
+ 
+freq = linspace(0, fs/2, N/2+1);
+ 
+ 
+figure
+subplot(2,1,1);
+plot(freq, X_mag);
+set(gca,'xlim',[0 60]);
+set(gca,'ylim',[0 40]);
+xlabel('frequency (hz)');
+ylabel('magnitude');
+title('Frequency spectrum - Before filtering');
